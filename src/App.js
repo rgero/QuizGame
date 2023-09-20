@@ -10,27 +10,18 @@ import QuizScreen from './screens/QuizScreen';
 import FinishedScreen from './screens/FinishedScreen';
 
 import Status from './Status';
-import { reducer } from './reducers/quizReducer';
 
-
+// This screams to useContext but I'm being lazy right now.
+import { initialState, reducer } from './reducers/quizReducer';
 
 let targetServerAddress = process.env.REACT_APP_QUIZ_SERVER;
 
-const initialState = { 
-  quizName: "The Quiz",
-  questions: [],
-  index: 0,
-  answer: null,
-  points: 0, 
-  status: Status.Loading
-}
-
 const App = () => {
-  const [{quizName, questions, index, answer, points, status}, dispatch] = useReducer(reducer, initialState)
+  const [{quizName, questions, index, answer, points, status, secondsRemaining}, dispatch] = useReducer(reducer, initialState)
   const numQuestions = questions.length;
   const maxPoints = questions.reduce((prev, curr) => prev + curr.points, 0);
 
-  // Get the data from the API
+  // Get the data from the API - This could be moved to its own effect.
   useEffect( ()=> {
     fetch(targetServerAddress)
       .then(res => res.json())
@@ -51,6 +42,7 @@ const App = () => {
                                                  maxPoints={maxPoints}
                                                  answer={answer}
                                                  questions={questions}
+                                                 secondsRemaining={secondsRemaining}
                                                  dispatch={dispatch}
                                       />
         }

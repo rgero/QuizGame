@@ -1,5 +1,17 @@
 import Status from "../Status"
 
+const SECONDS_PER_QUESTION = 30;
+
+export const initialState = { 
+    quizName: "The Quiz",
+    questions: [],
+    index: 0,
+    answer: null,
+    points: 0, 
+    status: Status.Loading,
+    secondsRemaining: null
+  }
+
 export const reducer = (state, action) => {
     switch(action.type)
     {
@@ -17,7 +29,8 @@ export const reducer = (state, action) => {
       case "quizStarted":
         return {
           ...state,
-          status: Status.Active
+          status: Status.Active,
+          secondsRemaining: state.questions.length * SECONDS_PER_QUESTION
         }
       case "newAnswer":
         const question = state.questions.at(state.index);
@@ -38,13 +51,13 @@ export const reducer = (state, action) => {
             status: Status.Finished
         }
       case "restart":
+        return { ...initialState, questions: state.questions, status: "ready" };
+      case "tick":
         return {
-            ...state,
-            index: 0,
-            answer: null,
-            points: 0, 
-            status: Status.Active
-        }
+              ...state,
+              secondsRemaining: state.secondsRemaining - 1,
+              status: state.secondsRemaining === 0 ? Status.Finished : state.status,
+        };
       default:
         throw new Error("Action is unknown");
     }

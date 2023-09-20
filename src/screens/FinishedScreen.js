@@ -11,7 +11,7 @@ const FinishedScreen = ({points, maxPoints, highScore, dispatch}) => {
     return (
         <>
             <p className="result">
-                <span>{emoji}</span> You scored <strong>{points}</strong> out of {maxPoints} ({Math.ceil(percentage)})
+                <span>{emoji}</span> You scored <strong>{points}</strong> out of {maxPoints} ({Math.ceil(percentage)}%)
             </p>
             <button
                 className="btn btn-ui"
