@@ -1,4 +1,5 @@
 import Status from "../Status"
+
 export const reducer = (state, action) => {
     switch(action.type)
     {
@@ -30,6 +31,19 @@ export const reducer = (state, action) => {
           ...state,
           index: state.index + 1,
           answer: null
+        }
+      case "finish":
+        return {
+            ...state,
+            status: Status.Finished
+        }
+      case "restart":
+        return {
+            ...state,
+            index: 0,
+            answer: null,
+            points: 0, 
+            status: Status.Active
         }
       default:
         throw new Error("Action is unknown");

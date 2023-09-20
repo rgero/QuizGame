@@ -7,7 +7,7 @@ const QuizScreen = ({index, numQuestions, points, maxPoints, answer, questions, 
         <>
             <PointsDisplay index={index} numQuestions={numQuestions} points={points} maxPoints={maxPoints} answer={answer}/>
             <Question question={questions[index]} dispatch={dispatch} answer={answer}/>
-            <NextButton answer={answer} dispatch={dispatch}/>
+            <NextButton answer={answer} dispatch={dispatch} index={index} numQuestions={numQuestions}/>
         </>
     )
 }

@@ -54,7 +54,7 @@ const App = () => {
                                                  dispatch={dispatch}
                                       />
         }
-        {status === Status.Finished && <FinishedScreen/>}
+        {status === Status.Finished && <FinishedScreen points={points} maxPoints={maxPoints} dispatch={dispatch}/>}
       </Main>
     </div>
   );
