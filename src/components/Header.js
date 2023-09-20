@@ -1,8 +1,8 @@
-function Header() {
+const Header = ({quizName}) => {
   return (
     <header className='app-header'>
       <img src='logo512.png' alt='React logo' />
-      <h1>The Quiz Game</h1>
+      <h1>{quizName}</h1>
     </header>
   );
 }
