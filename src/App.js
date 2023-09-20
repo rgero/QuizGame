@@ -28,6 +28,7 @@ const initialState = {
 const App = () => {
   const [{quizName, questions, index, answer, points, status}, dispatch] = useReducer(reducer, initialState)
   const numQuestions = questions.length;
+  const maxPoints = questions.reduce((prev, curr) => prev + curr.points, 0);
 
   // Get the data from the API
   useEffect( ()=> {
@@ -46,9 +47,9 @@ const App = () => {
         {status === Status.Ready && <StartScreen quizLength={numQuestions} dispatch={dispatch} quizName={quizName}/>}
         {status === Status.Active && (
           <>
+            <PointsDisplay index={index} numQuestions={numQuestions} points={points} maxPoints={maxPoints} answer={answer}/>
             <Question question={questions[index]} dispatch={dispatch} answer={answer}/>
             <NextButton answer={answer} dispatch={dispatch}/>
-            <PointsDisplay points={points}/>
           </>
         )}
       </Main>
