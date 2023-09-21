@@ -1,4 +1,8 @@
-const StartScreen = ({quizLength, dispatch, quizName="The Hockey Quiz"}) => {
+import { useQuizes } from "../contexts/QuizContext"
+
+const StartScreen = () => {
+    const {numQuestions, quizName, dispatch} = useQuizes();
+
     const handleStart = () => {
         dispatch({"type": "quizStarted"})
     }
@@ -6,7 +10,7 @@ const StartScreen = ({quizLength, dispatch, quizName="The Hockey Quiz"}) => {
     return (
         <div className="start">
             <h2>Welcome to {quizName}</h2>
-            <h3>{quizLength} questions to test your knowledge</h3>
+            <h3>{numQuestions} questions to test your knowledge</h3>
             <button className="btn btn-ui" onClick={handleStart}>Let's Start</button>
         </div>
     )
